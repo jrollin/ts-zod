@@ -1,4 +1,5 @@
 [![Test](https://github.com/jrollin/ts-zod/actions/workflows/test.yml/badge.svg)](https://github.com/jrollin/ts-zod/actions/workflows/test.yml)
+[![Zod](https://img.shields.io/badge/zod-4-3068b7?logo=zod&logoColor=white)](https://zod.dev/)
 
 ![Zod logo](./zod.png)
 
