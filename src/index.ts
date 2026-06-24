@@ -3,4 +3,6 @@ import { displayNobelPrizes } from "./view";
 
 getNobelPrizes()
   .then(displayNobelPrizes)
-  .catch((e) => console.error(e));
+  .catch((e: unknown) => {
+    console.error(e);
+  });

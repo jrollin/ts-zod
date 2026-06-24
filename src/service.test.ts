@@ -1,8 +1,9 @@
 import { mockFetch } from "fetch-mocked";
 import { vi, expect, describe, it, afterEach } from "vitest";
+import { ZodError } from "zod";
 import { getNobelPrizes } from "./service";
 
-let mockedFetch = mockFetch(vi.fn);
+const mockedFetch = mockFetch(vi.fn);
 
 describe("Service Nobel", () => {
   afterEach(() => {
@@ -36,6 +37,14 @@ describe("Service Nobel", () => {
   it("Expect error if wrong data received", async () => {
     const body = { invalid: "key" };
     mockedFetch.mockRequest("*", { body });
-    await expect(getNobelPrizes).rejects.toThrowError();
+    await expect(getNobelPrizes()).rejects.toThrowError();
+  });
+
+  it("preserves the underlying ZodError as the error cause", async () => {
+    const body = { invalid: "key" };
+    mockedFetch.mockRequest("*", { body });
+    const error = await getNobelPrizes().catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(Error);
+    expect((error as Error).cause).toBeInstanceOf(ZodError);
   });
 });

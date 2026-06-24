@@ -10,9 +10,10 @@ Project to demonstrate Typescript Type validation at runtime thanks to [ Zod ](h
 
 Libraries used :
 
-- [Zod](https://zod.dev/) to ensure schema and type validation
+- [Zod](https://zod.dev/) (v4) to ensure schema and type validation
 - [Vitest](https://vitest.dev/) as test framework
-- [cross-fetch](https://github.com/lquixada/cross-fetch) to provide `fetch` in browser and node context
+
+> Uses the native `fetch` API (Node.js 18+), so no HTTP client dependency is required.
 
 ## API Nobel Prize
 

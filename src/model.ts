@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 
 export const NobelCategorySchema = z.enum([
   "chemistry",
@@ -25,15 +25,14 @@ export const PrizeSchema = z
     laureates: LaureateSchema.array().optional(),
     overallMotivation: z.string().optional(),
   })
-  .superRefine(({ laureates, overallMotivation }, ctx) => {
-    if (!laureates && !overallMotivation) {
-      ctx.addIssue({
-        message: "No Laureates have explaination",
-        path: ["laureates"], // path of error
-        code: z.ZodIssueCode.custom,
-      });
-    }
-  });
+  .refine(
+    ({ laureates, overallMotivation }) =>
+      Boolean(laureates) || Boolean(overallMotivation),
+    {
+      error: "No laureates and no overall motivation",
+      path: ["laureates"],
+    },
+  );
 
 export type Prize = z.infer<typeof PrizeSchema>;
 
