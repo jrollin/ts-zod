@@ -7,8 +7,7 @@ export const getNobelPrizes = async (): Promise<Prize[]> => {
   // ensure data type Prize
   const result = PrizeResponseSchema.safeParse(data);
   if (!result.success) {
-    throw Error("Error parsing prizes");
-  } else {
-    return result.data.prizes;
+    throw new Error("Error parsing prizes", { cause: result.error });
   }
+  return result.data.prizes;
 };
